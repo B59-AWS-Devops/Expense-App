@@ -3,17 +3,18 @@
 # --- FRONTEND SETUP SCRIPT ---
 
 # Update system and install Nginx
-echo -e "Installing Nginx..."
+echo -n "Installing Nginx :"
 dnf install nginx -y &>> /tmp/frontend.log
 if [ $? -eq 0 ]; then
-    echo "Nginx installed successfully."
+    echo "Nginx installed successfully"
+    exit 0
 else
     echo "Failed to install Nginx. Check /tmp/frontend.log for details."
     exit 1
 fi
 
 # Enable and start nginx
-echo -e "Starting Nginx.."
+echo -n "Starting Nginx :"
 systemctl enable nginx
 systemctl start nginx
 if [ $? -eq 0 ]; then
