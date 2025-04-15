@@ -17,7 +17,7 @@ echo -e "Starting Nginx.."
 systemctl enable nginx
 systemctl start nginx
 if [ $? -eq 0 ]; then
-    echo -e "Nginx Started \e[32m successfully \e [0m"
+    echo -e "Nginx Started \e[32m successfully\e[0m"
 else
     echo "Failed to start Nginx. Check /tmp/frontend.log for details."
     exit 1
