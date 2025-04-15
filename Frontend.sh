@@ -3,26 +3,26 @@
 # --- FRONTEND SETUP SCRIPT ---
 
 # Update system and install Nginx
-echo -n "Installing Nginx :"
+echo -n "Installing Nginx : "
 dnf install nginx -y &>> /tmp/frontend.log
 if [ $? -eq 0 ]; then
-    echo -e "Nginx installed successfully"
-    exit 0
+    echo -e "\e[32mNginx installed successfully\e[0m"
 else
-    echo "Failed to install Nginx. Check /tmp/frontend.log for details."
+    echo -e "\e[31mFailed to install Nginx. Check /tmp/frontend.log for details.\e[0m"
     exit 1
 fi
 
 # Enable and start nginx
-echo -n "Starting Nginx :"
+echo -n "Starting Nginx : "
 systemctl enable nginx &>> /tmp/frontend.log
-systemctl start nginx  &>> /tmp/frontend.log
+systemctl start nginx &>> /tmp/frontend.log
 if [ $? -eq 0 ]; then
-    echo -e "Nginx Started \e[32m successfully\e[0m"
+    echo -e "\e[32mNginx started successfully\e[0m"
 else
-    echo "Failed to start Nginx. Check /tmp/frontend.log for details."
+    echo -e "\e[31mFailed to start Nginx. Check /tmp/frontend.log for details.\e[0m"
     exit 1
 fi
+
 
 # Check if nginx is running
 systemctl status nginx
