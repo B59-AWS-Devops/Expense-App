@@ -22,4 +22,6 @@ curl -o /tmp/frontend.zip https://expense-web-app.s3.amazonaws.com/frontend.zip
  #status of nginx
  systemctl status nginx
 
+ set-hostname Frontend
+
  #completed successfully
