@@ -82,7 +82,7 @@ fi
 
 # Confirm nginx status
 echo -n "Confirming Nginx status..."
-systemctl status nginx
+systemctl status nginx &>> /tmp/frontend.log
 if  [ $? -eq 0 ]; then
     echo -e "\e[32mNginx is running\e[0m"
 else
