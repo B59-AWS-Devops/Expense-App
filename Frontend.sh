@@ -3,7 +3,7 @@
 # --- FRONTEND SETUP SCRIPT ---
 
 # Update system and install Nginx
-echo -n "Installing Nginx : "
+echo \n\t"Installing Nginx : "
 dnf install nginx -y &>> /tmp/frontend.log
 if [ $? -eq 0 ]; then
     echo -e "\e[32mNginx installed successfully\e[0m"
