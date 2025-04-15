@@ -42,7 +42,7 @@ fi
 
 # Download frontend zip
 echo -n "Downloading frontend..."
-curl -o /tmp/frontend.zip https://expense-web-app.s3.amazonaws.com/frontend.zip
+curl -o /tmp/frontend.zip https://expense-web-app.s3.amazonaws.com/frontend.zip  &>> /tmp/frontend.log
 if [ $? -eq 0 ]; then
     echo -e "\e[32mFrontend zip downloaded successfully\e[0m"
 else
