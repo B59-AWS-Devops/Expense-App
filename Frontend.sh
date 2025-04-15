@@ -6,7 +6,7 @@
 echo -n "Installing Nginx :"
 dnf install nginx -y &>> /tmp/frontend.log
 if [ $? -eq 0 ]; then
-    echo "Nginx installed successfully"
+    echo -e "Nginx installed successfully"
     exit 0
 else
     echo "Failed to install Nginx. Check /tmp/frontend.log for details."
