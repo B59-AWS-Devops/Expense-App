@@ -26,12 +26,12 @@ fi
 
 # Check if nginx is running
 echo -n "Checking Nginx status : "
-systemctl status nginx
+systemctl status nginx &>> /tmp/frontend.log
 curl -I http://localhost
 
 # Clear existing default web page content
 echo -n "Clearing default web page content : "
-rm -rf /usr/share/nginx/html/*
+rm -rf /usr/share/nginx/html/* &>> /tmp/frontend.log
 if [ $? -eq 0 ]; then
     echo -e "\e[32mCleared default web page content successfully\e[0m"
     exit 0
@@ -52,7 +52,7 @@ fi
 
 # Unzip frontend to nginx html directory
 echo -n "Unzipping frontend to nginx html directory..."
-cd /usr/share/nginx/html
+cd /usr/share/nginx/html &>> /tmp/frontend.log
 if [ $? -eq 0 ]; then
     echo -e "\e[32mChanged directory to /usr/share/nginx/html successfully\e[0m"
 else
@@ -72,7 +72,7 @@ fi
 
 # Restart nginx to apply changes
 echo -n "Restarting nginx..."
-systemctl restart nginx
+systemctl restart nginx &>> /tmp/frontend.log
 if  [ $? -eq 0 ]; then
     echo -e "\e[32mNginx restarted successfully\e[0m"
 else
