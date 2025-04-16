@@ -44,7 +44,7 @@ id $AppUser &>> $log_file
 
 if [ $? -eq 0 ]; then
     echo -e "\e[31mUser already exists\e[0m"
-    echo -n "skipping the user creation"
+    echo -n "skipping the user creation :"
     else
     echo -n "creating the user:"
     useradd $AppUser &>> $log_file
@@ -53,13 +53,12 @@ if [ $? -eq 0 ]; then
     stat $?
 ##Downloading the application code
 echo -n "Downloading the application code:"
-curl -o /tmp/backend.zip https://expense-web-app.s3.amazonaws.com/backend.zip
+curl -o /tmp/$component.zip https://expense-web-app.s3.amazonaws.com/$component.zip
 ##changing the directory and unzip the file
-echo -n "unzipping the file: "
-cd /app
-unzip /tmp/backend.zip &>> $log_file
+echo -n "Unzipping the backend archive: "
+cd /app &>> $log_file
+unzip /tmp/$component.zip &>> $log_file
 stat $?
-
 ##Creating the artifacts
 echo -n "Creating the artifacts:"
 npm install &>> $log_file   
