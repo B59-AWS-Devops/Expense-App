@@ -6,6 +6,7 @@
 
 component=frontend
 log_file=/tmp/$component.log
+Package=Nginx
 
 VALIDATE () {
     if [ $(id -u) -eq 0 ]; then
@@ -35,8 +36,8 @@ stat $?
 
 # Enable and start nginx
 echo -n "Starting Nginx : "
-systemctl enable nginx &>> $log_file 
-systemctl start nginx &>> $log_file 
+systemctl enable $Package &>> $log_file 
+systemctl start $Package &>> $log_file 
 
 stat $?
 
@@ -44,12 +45,12 @@ stat $?
 
 # Check if nginx is running
 echo -n "Checking Nginx status : "
-systemctl status nginx &>> $log_file 
+systemctl status $Package &>> $log_file 
 curl -I http://localhost
 
 # Clear existing default web page content
 echo -n "Clearing default web page content : "
-rm -rf /usr/share/nginx/html/* &>> $log_file 
+rm -rf /usr/share$Package/html/* &>> $log_file 
 stat $?
 
 # Download frontend zip
@@ -60,7 +61,7 @@ stat $?
 
 # Unzip frontend to nginx html directory
 echo -n "Unzipping frontend to nginx html directory..."
-cd /usr/share/nginx/html &>> $log_file 
+cd /usr/share/$Package/html &>> $log_file 
 stat $?
 
 #check unzip is installed
@@ -75,12 +76,12 @@ stat $?
 
 # Restart nginx to apply changes
 echo -n "Restarting nginx :"
-systemctl restart nginx &>> $log_file 
+systemctl restart $Package &>> $log_file 
 stat $?
 
 # Confirm nginx status
 echo -n "Confirming Nginx status :"
-systemctl status nginx &>> $log_file 
+systemctl status $Package &>> $log_file 
 stat $?
 
 
