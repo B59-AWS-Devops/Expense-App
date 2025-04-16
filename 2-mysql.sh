@@ -5,6 +5,7 @@
 Component=Backend
 log_file=/tmp/$component.log
 Package=mysql
+Package_service=mysqld
 
 ##common functions
     if [ $(id -u) -eq 0 ]; then
@@ -26,14 +27,14 @@ fi
 
 ##Installing mysql
 echo -n "Installing mysql : "
- dnf install $Package-server -y &>> $log_file
+ dnf install $Package-service -y &>> $log_file
  stat $?
 
  ##Enable and start mysql
  echo -n "starting mysql :"
  echo -n "enable mysql :"
-systemctl start $Package &>> $log_file
-systemctl enable $Package &>> $log_file
+systemctl start $Package_service &>> $log_file
+systemctl enable $Package_service &>> $log_file
 stat $?
 
 ##setting username and password for mysql
