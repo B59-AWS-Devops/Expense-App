@@ -29,8 +29,8 @@ fi
 ##diabale and enable Nodejs
 echo -n "Disable and enable $Package :"
 dnf module list 
-dnf module disable $Package -y
-dnf module enable $Package:20 -y 
+dnf module disable $Package -y &>> $log_file
+dnf module enable $Package:20 -y &>> $log_file
 stat $?
 
 ##Installing nodejs
