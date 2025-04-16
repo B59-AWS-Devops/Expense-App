@@ -2,7 +2,7 @@
 
 ### Mysql setup script
 
-component=backend
+Component=Backend
 log_file=/tmp/$component.log
 Package=mysql
 
