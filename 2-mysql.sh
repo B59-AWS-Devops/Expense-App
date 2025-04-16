@@ -4,7 +4,7 @@
 
 Component=Backend
 log_file=/tmp/$component.log
-Package=mysql
+Package_Name=mysql
 Package_service=mysqld
 
 ##common functions
@@ -27,7 +27,7 @@ fi
 
 ##Installing mysql
 echo -n "Installing mysql : "
- dnf install $Package-service -y &>> $log_file
+ dnf install $Package_Name-server -y &>> $log_file
  stat $?
 
  ##Enable and start mysql
