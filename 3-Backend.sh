@@ -41,6 +41,7 @@ stat $?
 
 ##Creating the user and the directory
 id $AppUser &>> $log_file
+mkdir $AppUser &>> $log_file
 if [$? -eq 0 ]; then
     echo -e "\e[31mUser already exists\e[0m"
     echo -n "skipping the user creation"
