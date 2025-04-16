@@ -1,98 +1,102 @@
 #!/bin/bash
- 
- ## setup backend script
 
- component=backend
+## Setup backend script
+
+component=backend
 log_file=/tmp/$component.log
 Package=nodejs
 AppUser=expense
 
-##common functions
-    if [ $(id -u) -eq 0 ]; then
-        echo -e "\e[32mUser is root\e[0m"
-    else
-        echo -e User is not root. Please run as root."\e[31m sudo sh $0\e[0m"
-        exit 2
-    fi
-
-
-stat () {
-if [ $1 -eq 0 ]; then
-    echo -e "\e[32msuccessfully\e[0m"
+## Validate root user
+if [ $(id -u) -ne 0 ]; then
+    echo -e "\e[31mUser is not root. Please run as root: sudo sh $0\e[0m"
+    exit 2
 else
-    echo -e "\e[31mfailure. Check $log_file  for details.\e[0m"
-    
+    echo -e "\e[32mUser is root\e[0m"
 fi
+
+## Common status check function
+stat () {
+  if [ $1 -eq 0 ]; then
+    echo -e "\e[32msuccessfully\e[0m"
+  else
+    echo -e "\e[31mfailure. Check $log_file for details.\e[0m"
+    exit 1
+  fi
 }
 
-
-##diabale and enable Nodejs
+## Disable and enable Node.js
 echo -n "Disable and enable $Package :"
-dnf module list 
 dnf module disable $Package -y &>> $log_file
+stat $?
 dnf module enable $Package:20 -y &>> $log_file
 stat $?
 
-##Installing nodejs
+## Install Node.js
 echo -n "Installing $Package:"
 dnf install $Package -y &>> $log_file
 stat $?
 
-
-##Creating the user and the directory
+## Create the user if not exists
 id $AppUser &>> $log_file
-
 if [ $? -eq 0 ]; then
-    echo -e "\e[31mUser already exists\e[0m"
-    echo -n "skipping the user creation :"
-    else
-    echo -n "creating the user:"
-    useradd $AppUser &>> $log_file
-    mkdir  /app &>> $log_file
-    fi
-    stat $?
-##Downloading the application code
+  echo -e "\e[33mUser already exists. Skipping user creation.\e[0m"
+else
+  echo -n "Creating user:"
+  useradd $AppUser &>> $log_file
+  stat $?
+fi
+
+## Create /app directory if not exists
+mkdir -p /app &>> $log_file
+stat $?
+
+## Download backend zip
 echo -n "Downloading the application code:"
-curl -o /tmp/$component.zip https://expense-web-app.s3.amazonaws.com/$component.zip
-##changing the directory and unzip the file
+curl -o /tmp/$component.zip https://expense-web-app.s3.amazonaws.com/$component.zip &>> $log_file
+stat $?
+
+## Unzip code
 echo -n "Unzipping the backend archive: "
 cd /app &>> $log_file
-unzip /tmp/$component.zip &>> $log_file
+unzip -o /tmp/$component.zip &>> $log_file
 stat $?
-##Creating the artifacts
-echo -n "Creating the artifacts:"
-npm install &>> $log_file   
 
-##Configuring the service
-echo -n "configuring the service:"
+## Create artifacts
+echo -n "Creating the artifacts:"
+npm install &>> $log_file
+stat $?
+
+## Copy and configure service file
+echo -n "Configuring the service:"
 cp /home/ec2-user/Expense-App/$component.service /etc/systemd/system/$component.service &>> $log_file
 stat $?
 
-##Setting the permissions
+## Set permissions
 echo -n "Setting the permissions:"
 chmod -R 775 /app
 chown -R $AppUser:$AppUser /app
 stat $?
 
-##To load the schema 
-##Install mysql client on the backend server
-echo -n "Installing mysql client:"
-dnf install mysql-server -y &>> $log_file
+## Install MySQL client
+echo -n "Installing MySQL client:"
+dnf install mysql -y &>> $log_file
 stat $?
 
-##Load the schema
+## Load schema
 echo -n "Loading the schema:"
-mysql -h  172.31.91.207 -uroot -pExpenseApp@1 < /app/schema/backend.sql 
+mysql -h 172.31.91.207 -uroot -pExpenseApp@1 < /app/schema/backend.sql &>> $log_file
+stat $?
 
-##reload demon
+## Reload systemd and start service
 echo -n "Reloading the daemon:"
 systemctl daemon-reload &>> $log_file
 stat $?
 
-## start and enable the service
 echo -n "Starting the service:"
 systemctl start $component &>> $log_file
 systemctl enable $component &>> $log_file
 stat $?
 
 echo -e "\e[32m$component setup completed successfully\e[0m"
+
