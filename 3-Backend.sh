@@ -21,7 +21,7 @@ if [ $1 -eq 0 ]; then
     echo -e "\e[32msuccessfully\e[0m"
 else
     echo -e "\e[31mfailure. Check $log_file  for details.\e[0m"
-    exit 1
+    
 fi
 }
 
@@ -41,7 +41,7 @@ stat $?
 
 ##Creating the user and the directory
 id $AppUser &>> $log_file
-mkdir app &>> $log_file
+
 if [ $? -eq 0 ]; then
     echo -e "\e[31mUser already exists\e[0m"
     echo -n "skipping the user creation"
