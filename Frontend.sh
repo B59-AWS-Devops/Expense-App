@@ -7,13 +7,14 @@
 component=frontend
 log_file=/tmp/$component.log
 
+stat () {
 if [ $1 -eq 0 ]; then
     echo -e "\e[32msuccessfully\e[0m"
 else
     echo -e "\e[31mfailure. Check $log_file  for details.\e[0m"
     exit 1
 fi
-
+}
 
 
 
