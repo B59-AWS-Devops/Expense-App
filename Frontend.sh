@@ -65,7 +65,7 @@ stat $?
 
 # Confirm nginx status
 echo -n "Confirming Nginx status..."
-systemctl status nginx &>> $log_file 
+systemctl stats nginx &>> $log_file 
 stat $?
 
 
