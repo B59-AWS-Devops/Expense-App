@@ -30,12 +30,14 @@ fi
 
 echo -n "Installing Nginx : "
 dnf install nginx -y &>> $log_file 
+VALIDATE
 stat $?
 
 # Enable and start nginx
 echo -n "Starting Nginx : "
 systemctl enable nginx &>> $log_file 
 systemctl start nginx &>> $log_file 
+VALIDATE
 stat $?
 
 
