@@ -55,7 +55,7 @@ if [ $? -eq 0 ]; then
 echo -n "Downloading the application code:"
 curl -o /tmp/backend.zip https://expense-web-app.s3.amazonaws.com/backend.zip
 ##changing the directory and unzip the file
-echo -n"unzipping the file:"
+echo -n "unzipping the file: "
 cd /app
 unzip /tmp/backend.zip &>> $log_file
 stat $?
