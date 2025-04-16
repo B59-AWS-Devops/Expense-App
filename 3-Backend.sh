@@ -77,7 +77,7 @@ stat $?
 
 ## Configure systemd service
 echo -n "Configuring systemd service: "
-cp /home/ec2-user/Expense-App/backend.service /etc/systemd/system/$component.service &>> $log_file
+cp /home/ec2-user/Expense-App/Backend.service /etc/systemd/system/$component.service &>> $log_file
 stat $?
 
 ## Set ownership and permissions
