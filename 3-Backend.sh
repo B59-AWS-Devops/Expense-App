@@ -69,7 +69,7 @@ stat $?
 
 ## Copy and configure service file
 echo -n "Configuring the service:"
-cp /home/ec2-user/Expense-App/$component.service /etc/systemd/system/$component.service &>> $log_file
+cp /home/ec2-user/Expense-App/Backend.service /etc/systemd/system/$component.service &>> $log_file
 stat $?
 
 ## Set permissions
