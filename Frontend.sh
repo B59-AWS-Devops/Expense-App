@@ -57,9 +57,9 @@ stat $?
 unzip -o /tmp/frontend.zip &>> $log_file 
 stat $?
 
-##copying the expense conf file reverse proxy
-echo -n "Coppying conf file reverse proxy :"
-cp expense.conf /etc/nginx/default.d/expense.conf &>> $log_file
+##configuring proxy
+echo -n "configuring proxy :"
+cp proxy.conf /etc/nginx/default.d/expense.conf &>> $log_file
 stat $?
 
 # Restart nginx to apply changes
