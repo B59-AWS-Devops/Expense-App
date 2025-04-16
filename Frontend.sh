@@ -6,7 +6,7 @@
 
 component=frontend
 log_file=/tmp/$component.log
-Package=Nginx
+Package=nginx
 
 VALIDATE () {
     if [ $(id -u) -eq 0 ]; then
