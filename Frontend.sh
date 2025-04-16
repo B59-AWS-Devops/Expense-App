@@ -57,6 +57,10 @@ stat $?
 unzip -o /tmp/frontend.zip &>> $log_file 
 stat $?
 
+##copying the expense conf file reverse proxy
+echo -n "Coppying conf file reverse proxy :
+cp expense.conf /etc/nginx/default.d/expense.conf &>> $log_file
+stat $?
 
 # Restart nginx to apply changes
 echo -n "Restarting nginx..."
@@ -65,7 +69,7 @@ stat $?
 
 # Confirm nginx status
 echo -n "Confirming Nginx status..."
-systemctl stats nginx &>> $log_file 
+systemctl status nginx &>> $log_file 
 stat $?
 
 
