@@ -2,7 +2,7 @@
  
  ## setup backend script
 
- component=Backend
+ component=backend
 log_file=/tmp/$component.log
 Package=nodejs
 AppUser=expense
@@ -41,7 +41,7 @@ stat $?
 
 ##Creating the user and the directory
 id $AppUser &>> $log_file
-mkdir $AppUser &>> $log_file
+mkdir app &>> $log_file
 if [ $? -eq 0 ]; then
     echo -e "\e[31mUser already exists\e[0m"
     echo -n "skipping the user creation"
@@ -66,7 +66,7 @@ npm install &>> $log_file
 
 ##Configuring the service
 echo -n "configuring the service:"
-cp /home/ec2-user/Expense-App/$Backend.service /etc/systemd/system/$component.service &>> $log_file
+cp /home/ec2-user/Expense-App/$component.service /etc/systemd/system/$component.service &>> $log_file
 stat $?
 
 ##Setting the permissions
