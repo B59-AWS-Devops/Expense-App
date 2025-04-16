@@ -59,7 +59,7 @@ stat $?
 
 ##configuring proxy
 echo -n "configuring proxy :"
-cp proxy.conf /etc/nginx/default.d/expense.conf &>> $log_file
+cp C:\Users\PAVAN\Downloads\Expense-App\proxy.conf /etc/nginx/default.d/expense.conf &>> $log_file
 stat $?
 
 # Restart nginx to apply changes
