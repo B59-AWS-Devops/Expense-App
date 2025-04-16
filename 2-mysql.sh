@@ -43,4 +43,4 @@ mysql_secure_installation --set-root-pass ExpenseApp@1 &>> $log_file
 stat $?
 
 
-echo -e \e[32m"database created"\e[0m"
+echo -e "\e[32m"database created"\e[0m"
