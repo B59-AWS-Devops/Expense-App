@@ -3,31 +3,15 @@
 ### Mysql setup script
 
 component=Database
-log_file=/tmp/$component.log
+
 Package_Name=mysql
 Package_service=mysqld
 
+source common.sh
 read -p "Enter the MYSQL username :" mysql_user
 read -s -p "Enter the MYSQL password:" mysql_password
 echo
 
-##common functions
-    if [ $(id -u) -eq 0 ]; then
-        echo -e "\e[32mUser is root\e[0m"
-    else
-        echo -e User is not root. Please run as root."\e[31m sudo sh $0\e[0m"
-        exit 2
-    fi
-
-
-stat () {
-if [ $1 -eq 0 ]; then
-    echo -e "\e[32msuccessfully\e[0m"
-else
-    echo -e "\e[31mfailure. Check $log_file  for details.\e[0m"
-    exit 1
-fi
-}
 
 ##Installing mysql
 echo -n "Installing mysql : "

@@ -3,32 +3,16 @@
 ## Setup backend script
 
 component=backend
-log_file=/tmp/$component.log
+
 Package=nodejs
 AppUser=expense
 
+source common.sh
 ## Prompt for MySQL credentials
 read -p "Enter the MySQL username: " mysql_user
 read -s -p "Enter the MySQL password: " mysql_password
 echo
 
-## Validate root user
-if [ $(id -u) -ne 0 ]; then
-    echo -e "\e[31mUser is not root. Please run as root: sudo sh $0\e[0m"
-    exit 2
-else
-    echo -e "\e[32mUser is root\e[0m"
-fi
-
-## Common status check function
-stat () {
-  if [ $1 -eq 0 ]; then
-    echo -e "\e[32mSuccess\e[0m"
-  else
-    echo -e "\e[31mFailure. Check $log_file for details.\e[0m"
-    exit 1
-  fi
-}
 
 ## Disable and enable Node.js module
 echo -n "Disabling Node.js module: "
