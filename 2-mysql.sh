@@ -7,7 +7,7 @@ log_file=/tmp/$component.log
 Package_Name=mysql
 Package_service=mysqld
 
-read -p "Enter the MYSQL username :"mysql_user
+read -p "Enter the MYSQL username :" mysql_user
 read -s -p "Enter the MYSQL password:" mysql_password
 echo
 
