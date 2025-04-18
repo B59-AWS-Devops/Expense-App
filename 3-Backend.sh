@@ -7,7 +7,7 @@ component=backend
 Package=nodejs
 AppUser=expense
 
-source common.sh
+source /home/ec2-user/Expense-App/common.sh
 ## Prompt for MySQL credentials
 read -p "Enter the MySQL username: " mysql_user
 read -s -p "Enter the MySQL password: " mysql_password

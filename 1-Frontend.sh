@@ -8,12 +8,8 @@ component=frontend
 
 Package=nginx
 
-source common.sh
- 
 
-
-
-
+source /home/ec2-user/Expense-App/common.sh
 echo -n "Installing Nginx : "
 dnf install nginx -y &>> $log_file 
 

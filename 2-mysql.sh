@@ -7,7 +7,7 @@ component=Database
 Package_Name=mysql
 Package_service=mysqld
 
-source common.sh
+source /home/ec2-user/Expense-App/common.sh
 read -p "Enter the MYSQL username :" mysql_user
 read -s -p "Enter the MYSQL password:" mysql_password
 echo
