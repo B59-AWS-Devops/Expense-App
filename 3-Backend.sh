@@ -93,7 +93,7 @@ stat $?
 
 ## Load database schema
 echo -n "Loading schema to MySQL: "
-mysql -h 172.31.81.203 -u$mysql_user -p$mysql_password < /app/schema/backend.sql &>> $log_file
+mysql -h database.clouddevops.life -u$mysql_user -p$mysql_password < /app/schema/backend.sql &>> $log_file
 stat $?
 
 ## Reload systemd and start backend service
