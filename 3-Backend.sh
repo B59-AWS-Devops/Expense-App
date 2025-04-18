@@ -77,7 +77,7 @@ stat $?
 
 ## Configure systemd service
 echo -n "Configuring systemd service: "
-cp /home/ec2-user/Expense-App/${component}.service /etc/systemd/system/${component}.service &>> $log_file
+cp /home/ec2-user/Expense-App/backendconfig.service /etc/systemd/system/${component}.service &>> $log_file
 stat $?
 
 ## Set ownership and permissions
@@ -93,7 +93,7 @@ stat $?
 
 ## Load database schema
 echo -n "Loading schema to MySQL: "
-mysql -h 172.31.91.207 -u$mysql_user -p$mysql_password < /app/schema/backend.sql &>> $log_file
+mysql -h 172.31.81.203 -u$mysql_user -p$mysql_password < /app/schema/backend.sql &>> $log_file
 stat $?
 
 ## Reload systemd and start backend service
