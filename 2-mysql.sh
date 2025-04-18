@@ -7,6 +7,10 @@ log_file=/tmp/$component.log
 Package_Name=mysql
 Package_service=mysqld
 
+read -p "Enter the MYSQL username :mysql_user"
+read -s -p "Enter the MYSQL password: mysql_password"
+echo
+
 ##common functions
     if [ $(id -u) -eq 0 ]; then
         echo -e "\e[32mUser is root\e[0m"
@@ -39,7 +43,7 @@ stat $?
 
 ##setting username and password for mysql
 echo -n "setting my sql username and password :"
-mysql_secure_installation --set-root-pass ExpenseApp@1 &>> $log_file
+mysql_secure_installation --set-$mysql_user-pass $mysql_password &>> $log_file
 stat $?
 
 

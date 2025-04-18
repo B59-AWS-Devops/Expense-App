@@ -23,14 +23,14 @@ fi
 ## Common status check function
 stat () {
   if [ $1 -eq 0 ]; then
-    echo -e "\e[32msuccessfully\e[0m"
+    echo -e "\e[32mSuccess\e[0m"
   else
-    echo -e "\e[31mfailure. Check $log_file for details.\e[0m"
+    echo -e "\e[31mFailure. Check $log_file for details.\e[0m"
     exit 1
   fi
 }
 
-## Disable and enable Node.js
+## Disable and enable Node.js module
 echo -n "Disabling Node.js module: "
 dnf module disable $Package -y &>> $log_file
 stat $?
@@ -64,20 +64,20 @@ echo -n "Downloading application code: "
 curl -o /tmp/$component.zip https://expense-web-app.s3.amazonaws.com/$component.zip &>> $log_file
 stat $?
 
-## Unzip code
+## Unzip backend code
 echo -n "Unzipping application archive: "
 cd /app &>> $log_file
 unzip -o /tmp/$component.zip &>> $log_file
 stat $?
 
-## Install dependencies
+## Install Node.js dependencies
 echo -n "Installing Node.js dependencies: "
 npm install &>> $log_file
 stat $?
 
 ## Configure systemd service
 echo -n "Configuring systemd service: "
-cp /home/ec2-user/Expense-App/Backend.service /etc/systemd/system/$component.service &>> $log_file
+cp /home/ec2-user/Expense-App/${component}.service /etc/systemd/system/${component}.service &>> $log_file
 stat $?
 
 ## Set ownership and permissions
@@ -91,12 +91,12 @@ echo -n "Installing MySQL client: "
 dnf install mysql -y &>> $log_file
 stat $?
 
-## Load schema
+## Load database schema
 echo -n "Loading schema to MySQL: "
 mysql -h 172.31.91.207 -u$mysql_user -p$mysql_password < /app/schema/backend.sql &>> $log_file
 stat $?
 
-## Reload systemd and start service
+## Reload systemd and start backend service
 echo -n "Reloading systemd: "
 systemctl daemon-reload &>> $log_file
 stat $?
@@ -107,4 +107,3 @@ systemctl enable $component &>> $log_file
 stat $?
 
 echo -e "\e[32m$component setup completed successfully\e[0m"
-
