@@ -4,4 +4,4 @@
 
 
 
-find -name "*.js" -mtime +14
+find /home/ec2-user/EXPENSE-APP -name "*.js" -mtime +14
