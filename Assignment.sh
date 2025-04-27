@@ -2,4 +2,6 @@
 
 #Deleting the old files
 
-find -name Backend.js -mtime +14
+
+
+find -name "*.js" -mtime +14
